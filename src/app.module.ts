@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { ProjectsModule } from './projects/projects.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
+import { JobsModule } from './jobs/jobs.module';
+import { RealtimeModule } from './realtime/realtime.module';
 
 
 @Module({
@@ -13,6 +15,8 @@ import { WorkspacesModule } from './workspaces/workspaces.module';
     AuthModule,
     ProjectsModule,
     WorkspacesModule,
+    JobsModule,
+    RealtimeModule
   ],
 })
 export class AppModule { }
