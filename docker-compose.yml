@@ -1,13 +1,13 @@
-version: '3.9'
-
 services:
   api:
     build: .
     container_name: assessment-backend
     ports:
-      - '3001:3000'
+      - '3000:3000'
     env_file:
       - .env
+    environment:
+      REDIS_HOST: redis
     depends_on:
       - redis
 

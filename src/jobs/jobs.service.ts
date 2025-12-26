@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto';
 
 const jobQueue = new Queue('jobs', {
     connection: {
-        host: 'localhost',
+        host: process.env.REDIS_HOST || 'localhost',
         port: 6379,
     },
 });
