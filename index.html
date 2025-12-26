@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Realtime Test</title>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h2>Realtime Collaboration Test</h2>
+
+    <button onclick="emitFileChange()">Emit File Change</button>
+    <button onclick="emitCursor()">Emit Cursor Update</button>
+
+    <pre id="log"></pre>
+
+    <script>
+      const log = (msg) => {
+        document.getElementById('log').innerText += msg + '\n';
+      };
+
+      const socket = io('http://localhost:3000');
+
+      socket.on('connect', () => {
+        log('Connected: ' + socket.id);
+      });
+
+      socket.on('user-joined', (data) => log('JOIN: ' + JSON.stringify(data)));
+      socket.on('user-left', (data) => log('LEFT: ' + JSON.stringify(data)));
+      socket.on('file-change', (data) => log('FILE: ' + JSON.stringify(data)));
+      socket.on('cursor-update', (data) =>
+        log('CURSOR: ' + JSON.stringify(data)),
+      );
+
+      function emitFileChange() {
+        socket.emit('file-change', {
+          file: 'index.ts',
+          action: 'updated',
+        });
+      }
+
+      function emitCursor() {
+        socket.emit('cursor-update', {
+          line: 5,
+          column: 10,
+        });
+      }
+    </script>
+  </body>
+</html>
